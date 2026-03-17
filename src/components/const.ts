@@ -29,3 +29,17 @@ export const placeCardsInfo = [
 export const NumberOfOffers = {
   offers: 312,
 };
+
+
+export const enum AppRoute {
+  Main = '/',
+  Login = '/login',
+  Favorites = '/favorites',
+  Offer = '/offer/:id'
+}
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}

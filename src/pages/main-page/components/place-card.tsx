@@ -1,11 +1,11 @@
-import { placeCardsInfo } from './const.ts';
+import { placeCardsInfo } from '../../../components/const.ts';
 
-type PriceInfo = {
+type PlaceCardType = {
   src: string;
   price: string;
 }
 
-function PlaceCard({src, price}: PriceInfo): JSX.Element {
+function PlaceCard({src, price}: PlaceCardType): JSX.Element {
   return (
     <article className="cities__card place-card">
       <div className="cities__image-wrapper place-card__image-wrapper">
@@ -42,12 +42,20 @@ function PlaceCard({src, price}: PriceInfo): JSX.Element {
 }
 
 
-function PlaceCardsList(): JSX.Element {
-  return (
+// function PlaceCardsList(): JSX.Element {
+//   return (
+//     <div className="cities__places-list places__list tabs__content">
+//       {placeCardsInfo.map((info) => <PlaceCard src={info.src} price={info.price} key={info.id} />)}
+
+//     </div>);
+// }
+
+const PlaceCardsList = (): JSX.Element =>
+  (
     <div className="cities__places-list places__list tabs__content">
       {placeCardsInfo.map((info) => <PlaceCard src={info.src} price={info.price} key={info.id} />)}
+    </div>
+  );
 
-    </div>);
-}
 
 export default PlaceCardsList;
