@@ -3,7 +3,7 @@ import MainPage from '../../pages/main-page/main-page.tsx';
 import Favorites from '../../pages/favorites/favorites.tsx';
 import { NumberOfOffers, AppRoute, AuthorizationStatus } from '../const.ts';
 import PrivateRoute from '../private-route/private-route.tsx';
-import { NotFound404 } from '../not-found-404/not-found-404.tsx';
+import { ErrorPage } from '../../pages/error-page/error-page.tsx';
 import Login from '../../pages/login/login.tsx';
 import {HelmetProvider} from 'react-helmet-async';
 import Offer from '../../pages/offer/offer.tsx';
@@ -37,7 +37,7 @@ function App(): JSX.Element {
           />
           <Route
             path="*"
-            element={<NotFound404 />}
+            element={<ErrorPage />}
           />
         </Routes>
       </BrowserRouter>

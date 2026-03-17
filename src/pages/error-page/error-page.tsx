@@ -1,6 +1,6 @@
-import { AppRoute } from '../const';
+import { AppRoute } from '../../components/const';
 
-export const NotFound404 = () => (
+export const ErrorPage = () => (
   <div style={{
     color: 'MidnightBlue',
     margin: '0 auto',
