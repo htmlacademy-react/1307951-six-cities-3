@@ -8,6 +8,7 @@ import Login from '../../pages/login/login.tsx';
 import {HelmetProvider} from 'react-helmet-async';
 import Offer from '../../pages/offer/offer.tsx';
 import {OffersListType} from '../const.ts';
+import {offers as allOffers} from '../../mocks/offers.ts';
 
 
 type AppType = {
@@ -15,7 +16,6 @@ type AppType = {
 }
 
 function App({offers}:AppType): JSX.Element {
-  // return (<MainPage offers={NumberOfOffers.offers}/>);
   return (
 
     <HelmetProvider>
@@ -32,14 +32,15 @@ function App({offers}:AppType): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              // <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
                 <Favorites offers={offers.offersList2}/>
               </PrivateRoute>
             }
           />
           <Route
-            path={AppRoute.Offer}
-            element={<Offer />}
+            path={`${AppRoute.Offer}id`}
+            element={<Offer offers={allOffers}/>}
           />
           <Route
             path="*"

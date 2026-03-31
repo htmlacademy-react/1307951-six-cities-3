@@ -65,7 +65,7 @@ const offers: OfferType[] = [
       longitude: 6.9457948347,
       zoom: 12,
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 2.8,
     previewImage: 'https://loremflickr.com/260/200?random=845',

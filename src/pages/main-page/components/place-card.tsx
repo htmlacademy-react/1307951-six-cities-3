@@ -1,17 +1,19 @@
-import { OfferType } from '../../../components/const.ts';
+import { AppRoute, OfferType } from '../../../components/const.ts';
 import { useState } from 'react';
+import Premium from '../../../components/premium.tsx';
+import { Link } from 'react-router-dom';
 
 
 // в состояние активная карточка с предложением id Событие навести курсор
-function Premium(): JSX.Element {
-  return (<div className="place-card__mark"><span>Premium</span></div>);
-}
+// function Premium(): JSX.Element {
+//   return (<div className="place-card__mark"><span>Premium</span></div>);
+// }
 
 function PlaceCard(card: OfferType): JSX.Element {
   const [isActiveCard, setActiveCardClass] = useState(false);
 
   return (
-    < article className = {
+    <article className = {
       `cities__card place-card ${isActiveCard ? 'place-card__bookmark-button--active' : ''}`
     }
     onMouseOver = {
@@ -32,9 +34,9 @@ function PlaceCard(card: OfferType): JSX.Element {
 
       {card.isPremium ? <Premium /> : ''}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={`${AppRoute.Offer}${card.id}`}>
           <img className="place-card__image" src={card.previewImage} width="260" height="200" alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -57,7 +59,7 @@ function PlaceCard(card: OfferType): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{card.title}</a>
+          <Link to={`${AppRoute.Offer}${card.id}`}>{card.title}</Link>
         </h2>
         <p className="place-card__type">{card.type}</p>
       </div>
