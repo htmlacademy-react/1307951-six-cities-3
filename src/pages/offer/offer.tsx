@@ -5,7 +5,8 @@ import { ReviewFormComponent } from '../../components/comment-form/review-form-c
 import { useParams } from 'react-router';
 import { ImageList } from '../../components/image/image-list';
 import { GoodList } from '../../components/good/good-list';
-import { Premium } from '../../components/premium';
+import { Premium } from '../../components/premium/premium';
+import { Rating } from '../../components/rating/rating';
 
 
 const Offer = ({offers}: {offers: OfferDetailedType[]}): JSX.Element => {
@@ -18,9 +19,8 @@ const Offer = ({offers}: {offers: OfferDetailedType[]}): JSX.Element => {
   }
 
   let imageList = offer.images.map((image, index) : ImageIdType => ({id: index.toString(), picture: image}));
-  if (imageList.length > 6) {
-    imageList = imageList.slice(0, 6);
-  }
+
+  imageList = (imageList.length > 6) ? imageList.slice(0, 6) : imageList;
 
   const goodList = offer.goods.map((good, index) : GoodIdType => ({id: index.toString(), good: good,}));
 
@@ -37,12 +37,10 @@ const Offer = ({offers}: {offers: OfferDetailedType[]}): JSX.Element => {
 
           <div className='offer__container container'>
             <div className='offer__wrapper'>
-              {offer.isPremium && <Premium />}
+              {offer.isPremium && <Premium type={'offer'} />}
 
               <div className='offer__name-wrapper'>
-                <h1 className='offer__name'>{offer.title}
-                  {/* Beautiful &amp; luxurious studio at great location */}
-                </h1>
+                <h1 className='offer__name'>{offer.title}</h1>
 
                 <button className='offer__bookmark-button button' type='button'>
                   <svg className='offer__bookmark-icon' width={31} height={33}>
@@ -52,13 +50,14 @@ const Offer = ({offers}: {offers: OfferDetailedType[]}): JSX.Element => {
                 </button>
 
               </div>
+
               <div className='offer__rating rating'>
                 <div className='offer__stars rating__stars'>
-                  <span style={{ width: `${offer.rating * 20}%` }} />
-                  <span className='visually-hidden'>Rating</span>
+                  <Rating rating={offer.rating} />
                 </div>
                 <span className='offer__rating-value rating__value'>{offer.rating}</span>
               </div>
+
               <ul className='offer__features'>
                 <li className='offer__feature offer__feature--entire'>{offer.type}</li>
                 <li className='offer__feature offer__feature--bedrooms'>
@@ -74,7 +73,7 @@ const Offer = ({offers}: {offers: OfferDetailedType[]}): JSX.Element => {
               </div>
               <div className='offer__inside'>
                 <h2 className='offer__inside-title'>What&#39; s inside</h2>
-                <GoodList goodList={goodList}/>
+                <GoodList goodList={ goodList }/>
               </div>
               <div className='offer__host'>
                 <h2 className='offer__host-title'>Meet the host</h2>

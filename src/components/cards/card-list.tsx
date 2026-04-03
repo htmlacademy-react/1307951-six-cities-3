@@ -31,7 +31,7 @@ const CardList = ({offers} : CardListType): JSX.Element =>{
           key={offer.id}
           offer={offer}
           handleHover={handleHover}
-          type={{type: 'page'}}
+          type={'main'}
         />)
       )}
     </div>);
