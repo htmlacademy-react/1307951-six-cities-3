@@ -2,7 +2,7 @@ import { OfferType } from '../components/const';
 
 const offers: OfferType[] = [
   {
-    id: 'cb36f8ca-ba76-4347-9e0e-720d7de29013',
+    id: 'cb36f8ca-ba76-4347-9e0e-720d7de29012',
     title: 'Bright and stylish studio with modern interior in Amsterdam',
     type: 'house',
     price: 138,

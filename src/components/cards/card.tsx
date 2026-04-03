@@ -1,42 +1,42 @@
 import { AppRoute, OfferType } from '../../components/const.ts';
-import Premium from '../../components/premium.tsx';
+import { Premium } from '../premium/premium.tsx';
 import { Link } from 'react-router-dom';
+import { Rating } from '../rating/rating.tsx';
 
 
 const variants = {
-  page: {classPrefix: 'cities'},
+  main: {classPrefix: 'cities'},
   favorite: {classPrefix: 'favorites'},
-};
+} as const;
 
-type CardPageType = {
-  type: keyof typeof variants;
-};
+type CardPageType = keyof typeof variants;
+
 
 type CardType = {
   offer: OfferType;
   type: CardPageType;
-  handleHover: (offer?: OfferType) => void;
+  handleHover?: (offer?: OfferType) => void;
 };
 
 const Card = ({offer, type, handleHover}:CardType):JSX.Element => {
   const handleMouseOn = () => {
-    handleHover(offer);
+    handleHover?.(offer);
   };
 
   const handleMouseOff = () => {
-    handleHover();
+    handleHover?.();
   };
 
   return (
     <article
-      className={`${variants[type.type].classPrefix}__card place-card`}
+      className={`${variants[type].classPrefix}__card place-card`}
       onMouseEnter={handleMouseOn}
       onMouseLeave={handleMouseOff}
     >
 
-      {offer.isPremium && <Premium />}
+      {offer.isPremium && <Premium type='main'/>}
 
-      <div className={`${variants[type.type].classPrefix}__image-wrapper place-card__image-wrapper`}>
+      <div className={`${variants[type].classPrefix}__image-wrapper place-card__image-wrapper`}>
         <img
           className='place-card__image'
           src={offer.previewImage}
@@ -46,7 +46,7 @@ const Card = ({offer, type, handleHover}:CardType):JSX.Element => {
         />
 
       </div>
-      <div className={`${variants[type.type].classPrefix}__card-info place-card__info`}>
+      <div className={`${variants[type].classPrefix}__card-info place-card__info`}>
         <div className='place-card__price-wrapper'>
           <div className='place-card__price'>
             <b className='place-card__price-value'>{offer.price} &euro;</b>
@@ -63,8 +63,7 @@ const Card = ({offer, type, handleHover}:CardType):JSX.Element => {
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>
-            <span style={{ width: `${offer.rating * 20}%` }}></span>
-            <span className='visually-hidden'>Rating</span>
+            <Rating rating={offer.rating}/>
           </div>
         </div>
         <Link to={`${AppRoute.Offer}${offer.id}`}>

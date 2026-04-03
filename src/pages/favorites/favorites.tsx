@@ -13,7 +13,8 @@ const Favorites = ({ offers }: FavoritesType): JSX.Element =>
         <div className='page__favorites-container container'>
           <section className='favorites'>
             <h1 className='favorites__title'>Saved listing</h1>
-            <FavoriteList offers={offers} />
+            {offers && offers.length > 0 && <FavoriteList offers={offers} />}
+
           </section>
         </div>
       </main>
