@@ -5,6 +5,7 @@ import { ReviewFormComponent } from '../../components/comment-form/review-form-c
 import { useParams } from 'react-router';
 import { ImageList } from '../../components/image/image-list';
 import { GoodList } from '../../components/good/good-list';
+import { Premium } from '../../components/premium';
 
 
 const Offer = ({offers}: {offers: OfferDetailedType[]}): JSX.Element => {
@@ -16,9 +17,9 @@ const Offer = ({offers}: {offers: OfferDetailedType[]}): JSX.Element => {
     return <Error />;
   }
 
-  const imageList = offer.images.map((image, index) : ImageIdType => ({id: index.toString(), picture: image}));
+  let imageList = offer.images.map((image, index) : ImageIdType => ({id: index.toString(), picture: image}));
   if (imageList.length > 6) {
-    imageList.slice(0, 6);
+    imageList = imageList.slice(0, 6);
   }
 
   const goodList = offer.goods.map((good, index) : GoodIdType => ({id: index.toString(), good: good,}));
@@ -36,7 +37,7 @@ const Offer = ({offers}: {offers: OfferDetailedType[]}): JSX.Element => {
 
           <div className='offer__container container'>
             <div className='offer__wrapper'>
-              {offer.isPremium ? '<div className=\'offer__mark\'><span>Premium</span></div>' : ''}
+              {offer.isPremium && <Premium />}
 
               <div className='offer__name-wrapper'>
                 <h1 className='offer__name'>{offer.title}
