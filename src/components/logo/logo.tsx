@@ -14,4 +14,4 @@ const Logo = (): JSX.Element => (
   </Link>
 );
 
-export default Logo;
+export {Logo};

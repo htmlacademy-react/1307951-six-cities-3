@@ -1,6 +1,6 @@
 import { AppRoute } from '../../components/const';
 
-export const ErrorPage = () => (
+const Error = () => (
   <div style={{
     color: 'MidnightBlue',
     margin: '0 auto',
@@ -28,3 +28,5 @@ export const ErrorPage = () => (
     >Вернуться
     </a>
   </div>);
+
+export {Error};
