@@ -1,6 +1,6 @@
-import { Comments } from '../components/const';
+import { Reviews } from '../components/const';
 
-const comments: Comments = [
+const reviwes: Reviews = [
   {
     id: 'b67ddfd5-b953-4a30-8c8d-bd083cd6b62a',
     date: '2019-05-08T14:13:56.569Z',
@@ -157,4 +157,4 @@ const comments: Comments = [
   }
 ];
 
-export default {comments};
+export default { reviwes };

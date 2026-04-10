@@ -24,7 +24,6 @@ export enum CityList {
   Dusseldorf = 'Dusseldorf',
 }
 
-
 export type CityLocationType = {
   latitude: number;
   longitude: number;
@@ -97,7 +96,7 @@ export type UserType = {
   isPro: boolean;
 };
 
-export type Comment = {
+export type Review = {
   id: string;
   date: string;
   user: UserType;
@@ -105,7 +104,7 @@ export type Comment = {
   rating: number;
 };
 
-export type Comments = Comment[];
+export type Reviews = Review[];
 
 export type GoodIdType = {
   id: string;
@@ -116,3 +115,21 @@ export type ImageIdType = {
   id: string;
   picture: UrlType;
 }
+
+export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+export const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+export const TILE_LAYER_URL_PATTERN = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+export const TILE_LAYER_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
+export type MapCityType = {
+  title: string;
+  lat: number;
+  lng: number;
+  zoom: number;
+};
+
+
+export type MapRefType = {
+  mapRef: React.RefObject<HTMLElement>;
+  city: MapCityType;
+};
