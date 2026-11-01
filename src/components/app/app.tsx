@@ -1,7 +1,7 @@
 import Login from '../../pages/login-screen/login';
 import PrivateRoute from '../private-route/private-route';
 import Favorites from '../../pages/favorites-screen/favorites-screen';
-import NotFound from '../not-found/notFound';
+import NotFound from '../not-found/not-found';
 import MainScreen from '../../pages/main-screen/main-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 
@@ -40,7 +40,6 @@ function App(): JSX.Element {
 
           <Route path={AppRoute.Main} element={<MainScreen />}/>
           <Route path={AppRoute.Login} element={
-            // onlyUnAuth={true}
             <PrivateRoute onlyUnAuth>
               <Login />
             </PrivateRoute>

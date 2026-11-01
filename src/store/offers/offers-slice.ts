@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TOffer } from '../../components/types';
 import { RootState } from '..';
 import { fetchAllOffers } from './offers-thunk';
+import { NameSpace } from '../../components/const';
 
 export interface OffersState {
   offers: TOffer[];
@@ -35,6 +36,6 @@ export const offersSlice = createSlice({
 });
 
 export const offersActions = { fetchAllOffers };
-export const selectAllOffers = (state: RootState) => state.offers.offers;
-export const selectOffersLoading = (state: RootState) => state.offers.isLoading;
+export const selectAllOffers = (state: RootState) => state[NameSpace.Offers].offers;
+export const selectOffersLoading = (state: RootState) => state[NameSpace.Offers].isLoading;
 export default offersSlice.reducer;

@@ -1,4 +1,3 @@
-// import { APIRoute } from '../../components/const';
 import { APIRoute } from '../../components/const';
 import { TOffer } from '../../components/types';
 import { createAppAsyncThunk } from '../create-thunk';

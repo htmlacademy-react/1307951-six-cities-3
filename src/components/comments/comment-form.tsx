@@ -2,11 +2,11 @@ import { FormEventHandler, Fragment, ReactEventHandler, useState } from 'react';
 import { useActionCreators } from '../../store/hooks';
 import { commentsThunks } from '../../store/comments/comments-thunk';
 import { useParams } from 'react-router-dom';
-import { MIN_COMMENT_LENGTH } from '../const';
+import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../const';
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const rating = [
+const ratings = [
   { value: 5, label: 'perfect' },
   { value: 4, label: 'good' },
   { value: 3, label: 'not bad' },
@@ -71,7 +71,7 @@ function CommentForm() {
         Your review
       </label>
       <div className='reviews__rating-form form__rating'>
-        {rating.map(({ value, label }) => (
+        {ratings.map(({ value, label }) => (
           <Fragment key={value}>
             <input
               className='form__rating-input visually-hidden'
@@ -100,6 +100,7 @@ function CommentForm() {
         className='reviews__textarea form__textarea'
         id='review'
         name='review'
+        maxLength={MAX_COMMENT_LENGTH}
         onChange={handleFeedbackChange}
         placeholder='Tell how was your stay, what you like and what can be improved'
         value={review.review}
@@ -116,7 +117,7 @@ function CommentForm() {
         <button
           className='reviews__submit form__submit button'
           type='submit'
-          disabled={isSubmitting || review.review.length < MIN_COMMENT_LENGTH || review.rating === 0}
+          disabled={isSubmitting || review.review.length < MIN_COMMENT_LENGTH || review.rating === 0 }
         >
           Submit
         </button>

@@ -1,4 +1,3 @@
-// import type THeader from '../header/header-types';
 import { useLocation } from 'react-router-dom';
 import Logo from '../logo/logo';
 import { AppRoute } from '../const';

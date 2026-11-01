@@ -6,12 +6,13 @@ import { useCallback, useEffect } from 'react';
 import { useActionCreators, useAppDispatch, useAppSelector } from '../../store/hooks';
 import { offersActions, selectOffersLoading } from '../../store/offers/offers-slice';
 import { selectActiveCityLocation, selectSortedOffers, selectSortedOffersLength } from '../../store/offers/offers-selectors';
-import { selectActiveCity, selectActiveOfferId, selectSortType, uiActions } from '../../store/ui/ui-slice';
+import { selectActiveCity, selectActiveOfferId, selectSortType } from '../../store/ui/ui-slice-selectors';
 import Spinner from '../../components/spinner/spinner';
 import { AutorizationStatus } from '../../components/const';
 import { selectAuthorizationStatus } from '../../store/user/user-slice';
 import { favoritesActions } from '../../store/favorites/favorites-slice';
 import { toast } from 'react-toastify';
+import { uiActions } from '../../store/ui/ui-slice';
 
 
 export function MainList(): JSX.Element {

@@ -1,14 +1,13 @@
-import { Fragment, useCallback, useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
-import { TOffer } from '../../components/types';
 import Map from '../../components/map/map';
 import OfferList from '../../components/offers-list/offers-list';
 import { useActionCreators, useAppSelector, useAuth } from '../../store/hooks';
 import { offerActions, offerSelectors } from '../../store/offer/offer-slice';
 import Spinner from '../../components/spinner/spinner';
-import NotFound from '../../components/not-found/notFound';
+import NotFound from '../../components/not-found/not-found';
 import { RequestStatus } from '../../components/const';
 import { commentsActions } from '../../store/comments/comments-slice';
 import CommentForm from '../../components/comments/comment-form';
@@ -18,7 +17,7 @@ import { favoritesActions } from '../../store/favorites/favorites-slice';
 import { selectFavoritePendingIds } from '../../store/favorites/favorites-selectors';
 import { selectNearbyOffersWithFavorites, selectOfferWithFavorites } from '../../store/offer/offer-selectors';
 import { selectSortedCommentsByDate } from '../../store/comments/comments-selectors';
-import { selectActiveOfferId, uiActions } from '../../store/ui/ui-slice';
+import { selectActiveOfferId } from '../../store/ui/ui-slice-selectors';
 import OfferImages from './offer-images';
 import Insides from './insides';
 
@@ -33,17 +32,13 @@ function OfferScreen(): JSX.Element {
   const nearbyOffers = useAppSelector(selectNearbyOffersWithFavorites);
   const status = useAppSelector(offerSelectors.offerStatus);
   const activeOfferId = useAppSelector(selectActiveOfferId);
-  const { setActiveOfferId } = useActionCreators(uiActions);
+  // const { setActiveOfferId } = useActionCreators(uiActions);
   const isAuth = useAuth();
 
   const comments = useAppSelector(selectSortedCommentsByDate);
   const pendingIds = useAppSelector(selectFavoritePendingIds);
 
   const handleClick = useFavoriteClick();
-
-  const handleActiveOfferChange = useCallback((offer: TOffer | null): void => {
-    setActiveOfferId(offer?.id ?? null);
-  }, [setActiveOfferId]);
 
   useEffect(() => {
     if (!id) {
@@ -100,7 +95,7 @@ function OfferScreen(): JSX.Element {
   return (
     <Fragment>
       <Helmet>
-        <title>Предложение</title>
+        <title>Offer screen</title>
       </Helmet>
 
       <Header />
@@ -139,7 +134,7 @@ function OfferScreen(): JSX.Element {
                 <span className="offer__rating-value rating__value">{currentOffer.rating}</span>
               </div>
               <ul className="offer__features">
-                <li className="offer__feature offer__feature--entire">{currentOffer.type}</li>
+                <li className="offer__feature offer__feature--entire">{currentOffer.type.charAt(0).toUpperCase() + currentOffer.type.slice(1)}</li>
                 <li className="offer__feature offer__feature--bedrooms">
                   {currentOffer.bedrooms} Bedrooms
                 </li>
@@ -207,7 +202,6 @@ function OfferScreen(): JSX.Element {
             <div className="near-places__list places__list">
               <OfferList
                 offers={nearbyOffers}
-                onActiveOfferChange={handleActiveOfferChange}
               />
             </div>
           </section>

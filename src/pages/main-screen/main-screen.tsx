@@ -4,7 +4,7 @@ import LocationNavigation from '../../components/location-navigation/location-na
 
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../store/hooks';
-import { selectActiveCity} from '../../store/ui/ui-slice';
+import { selectActiveCity} from '../../store/ui/ui-slice-selectors';
 
 import { MainList } from './main-list';
 import { MainEmpty } from './main-empty';
@@ -20,7 +20,7 @@ function MainScreen(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
-        <title>Основной экран</title>
+        <title>Main screen</title>
       </Helmet>
       <Header />
 

@@ -15,7 +15,7 @@ type TChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 
 function Login(): JSX.Element {
 
-  const [formData, setFromData] = useState({
+  const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
@@ -25,7 +25,7 @@ function Login(): JSX.Element {
   const handleChange: TChangeHandler = (evt) => {
     const {name, value} = evt.currentTarget;
 
-    setFromData({
+    setFormData({
       ...formData,
       [name]: value
     });
@@ -39,9 +39,8 @@ function Login(): JSX.Element {
   return (
     <div className="page page--gray page--login">
 
-      {/*используем Helmet, чтобы отобразить название на вкладке*/}
       <Helmet>
-        <title>Логин</title>
+        <title>Login screen</title>
       </Helmet>
 
       <Header />

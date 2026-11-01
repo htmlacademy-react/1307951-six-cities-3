@@ -9,16 +9,15 @@ export type TFavoriteInfo = {
   isFavorite: boolean;
 }
 
-export const fetchFavorites = createAppAsyncThunk<OfferId[], void>(
+export const fetchFavorites = createAppAsyncThunk<TOffer[], void>(
   'favorites/fetch',
   async (_arg, {extra: api, rejectWithValue}) => {
     try {
-      const response = await api.get<TOffer[]>(APIRoute.Favorites);
-      return response.data.map((offer) => offer.id);
-    } catch(error) {
+      const { data } = await api.get<TOffer[]>(APIRoute.Favorites);
+      return data;
+    } catch {
       return rejectWithValue('Не удалось загрузить избранное');
     }
-
   }
 );
 

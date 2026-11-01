@@ -1,7 +1,8 @@
-import { uiActions, selectActiveCity} from '../../store/ui/ui-slice';
+import { selectActiveCity } from '../../store/ui/ui-slice-selectors';
 import { useActionCreators, useAppSelector } from '../../store/hooks';
 import { ALL_CITIES_NAMES, SortType } from '../const';
 import Location from './location';
+import { uiActions } from '../../store/ui/ui-slice';
 
 
 function LocationNavigation(): JSX.Element {

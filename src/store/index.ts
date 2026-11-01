@@ -7,16 +7,17 @@ import userReducer from './user/user-slice';
 import commentsReducer from './comments/comments-slice';
 import favoritesReducer from './favorites/favorites-slice';
 import { createAPI } from '../services/api';
+import { NameSpace } from '../components/const';
 
 export const api = createAPI();
 
 const reducer = combineReducers({
-  ui: uiReducer,
-  offers: offersReducer,
-  user: userReducer,
-  offer: offerReducer,
-  comments: commentsReducer,
-  favorites: favoritesReducer,
+  [NameSpace.Ui]: uiReducer,
+  [NameSpace.Offers]: offersReducer,
+  [NameSpace.User]: userReducer,
+  [NameSpace.Offer]: offerReducer,
+  [NameSpace.Comments]: commentsReducer,
+  [NameSpace.Favorites]: favoritesReducer,
 });
 
 

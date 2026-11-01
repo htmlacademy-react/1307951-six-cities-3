@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { RequestStatus } from '../../components/const';
+import { NameSpace, RequestStatus } from '../../components/const';
 import { TOffer } from '../../components/types';
 import { fetchNearBy, fetchOffer } from './offer-thunk';
 import { RootState } from '..';
@@ -51,9 +51,9 @@ export const offerActions = {
 };
 
 export const offerSelectors = {
-  nearbyOffers: (state: RootState) => state.offer.nearby,
-  offer: (state: RootState) => state.offer.info,
-  offerStatus: (state: RootState) => state.offer.status,
+  nearbyOffers: (state: RootState) => state[NameSpace.Offer].nearby,
+  offer: (state: RootState) => state[NameSpace.Offer].info,
+  offerStatus: (state: RootState) => state[NameSpace.Offer].status,
 };
 
 export default offerSlice.reducer;

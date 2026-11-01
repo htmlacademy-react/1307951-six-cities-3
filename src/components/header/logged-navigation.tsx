@@ -3,7 +3,6 @@ import { useActionCreators, useAppSelector, useAuth } from '../../store/hooks';
 import { favoritesActions } from '../../store/favorites/favorites-slice';
 import { selectUser, userActions } from '../../store/user/user-slice';
 import { selectFavoritesLength } from '../../store/favorites/favorites-selectors';
-import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { AppRoute } from '../const';
 
@@ -13,7 +12,7 @@ function LoggedNavigation(): JSX.Element {
 
   const user = useAppSelector(selectUser);
   const isAuth = useAuth();
-  const numberOfFavorites = useSelector(selectFavoritesLength);
+  const numberOfFavorites = useAppSelector(selectFavoritesLength);
 
   useEffect(() => {
     if (isAuth) {

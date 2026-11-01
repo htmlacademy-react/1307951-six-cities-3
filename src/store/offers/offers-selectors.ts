@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { selectActiveCity, selectSortType } from '../ui/ui-slice';
+import { selectActiveCity, selectSortType } from '../ui/ui-slice-selectors';
 import { SortType } from '../../components/const';
 import { selectOffersWithFavorites } from '../favorites/favorites-selectors';
 

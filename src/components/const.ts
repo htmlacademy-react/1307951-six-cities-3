@@ -51,5 +51,16 @@ export const ALL_CITIES_NAMES : readonly string[] = [
   'Hamburg',
   'Dusseldorf'] as const;
 
+
+export enum NameSpace {
+  Ui = 'UI',
+  User = 'USER',
+  Offer = 'OFFER',
+  Offers = 'OFFERS',
+  Favorites = 'FAVORITES',
+  Comments = 'COMMENTS',
+}
+
 export const MAX_COMMENTS = 10;
 export const MIN_COMMENT_LENGTH = 50;
+export const MAX_COMMENT_LENGTH = 300;

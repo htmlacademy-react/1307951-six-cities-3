@@ -1,32 +1,30 @@
-// selectors.ts
 import { createSelector } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
 import { selectAllOffers } from '../offers/offers-slice';
 import { selectAuthorizationStatus } from '../user/user-slice';
-import { AutorizationStatus } from '../../components/const';
+import { AutorizationStatus, NameSpace } from '../../components/const';
 import { ALL_CITIES_NAMES } from '../../components/const';
 import { TOffer } from '../../components/types';
 
-export const selectFavoriteIds = (state: RootState) => state.favorites.favoriteIds;
-export const selectFavoritesStatus = (state: RootState) => state.favorites.status;
-export const selectFavoritePendingIds = (state: RootState) => state.favorites.pendingIds;
+export const selectFavorites = (state: RootState) => state[NameSpace.Favorites].favorites;
+export const selectFavoritesStatus = (state: RootState) => state[NameSpace.Favorites].status;
+export const selectFavoritePendingIds = (state: RootState) => state[NameSpace.Favorites].pendingIds;
 
 
-// если пользователь НЕ авторизован, то список с id обнуляется
-export const selectEffectiveFavoriteIds = createSelector(
-  [selectFavoriteIds, selectAuthorizationStatus],
-  (favoriteIds, status) =>
-    status === AutorizationStatus.Auth ? favoriteIds : []
+export const selectEffectiveFavorites = createSelector(
+  [selectFavorites, selectAuthorizationStatus],
+  (favorites, status) =>
+    status === AutorizationStatus.Auth ? favorites : []
 );
 
 export const selectFavoriteIdSet = createSelector(
-  [selectEffectiveFavoriteIds],
-  (favoriteIds) => new Set(favoriteIds)
+  [selectEffectiveFavorites],
+  (favorites) => new Set(favorites.map((offer) => offer.id))
 );
 
 export const selectFavoritesLength = createSelector(
-  [selectFavoriteIds],
-  (favoriteIds) => favoriteIds.length
+  [selectFavorites],
+  (favorites) => favorites.length
 );
 
 export const selectOffersWithFavorites = createSelector(
@@ -35,16 +33,9 @@ export const selectOffersWithFavorites = createSelector(
     offers.map((offer) => ({ ...offer, isFavorite: favoriteSet.has(offer.id) }))
 );
 
-
-export const selectFavoriteOffers = createSelector(
-  [selectAllOffers, selectFavoriteIdSet],
-  (offers, favoriteSet) => offers.filter((offer) => favoriteSet.has(offer.id))
-);
-
 export const selectFavoritesByCityName = createSelector(
-  [selectFavoriteOffers],
+  [selectFavorites],
   (offers) => {
-
     const favoriteOffersByCity = new Map<string, TOffer[]>();
     for (const offer of offers) {
 
@@ -64,5 +55,4 @@ export const selectFavoritesByCityName = createSelector(
   }
 );
 
-
-export const favoriteSelectors = { selectFavoriteIdSet, selectFavoriteOffers };
+export const favoriteSelectors = {selectFavoritesByCityName, selectFavorites };

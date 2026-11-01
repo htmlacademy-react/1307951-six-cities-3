@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RequestStatus } from '../../components/const';
+import { NameSpace, RequestStatus } from '../../components/const';
 import { TComment, TComments } from '../../components/types';
 import { commentsThunks } from './comments-thunk';
 import { RootState } from '..';
@@ -44,7 +44,6 @@ export const commentsSlice = createSlice({
       .addCase(commentsThunks.fetchComments.fulfilled, processSuccess)
       .addCase(commentsThunks.fetchComments.pending, processLoading)
       .addCase(commentsThunks.fetchComments.rejected, processFailed)
-
       .addCase(commentsThunks.postComment.fulfilled, (state: CommentsState, action: PayloadAction<TComment>) => {
         state.items.push(action.payload);
       })
@@ -59,7 +58,7 @@ export const commentsActions = {
   ...commentsThunks
 };
 
-export const selectComments = (state: RootState) => state.comments.items;
-export const selectCommentsRequestStatus = (state: RootState) => state.comments.requestStatus;
+export const selectComments = (state: RootState) => state[NameSpace.Comments].items;
+export const selectCommentsRequestStatus = (state: RootState) => state[NameSpace.Comments].requestStatus;
 
 export default commentsSlice.reducer;

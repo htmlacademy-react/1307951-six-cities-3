@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AutorizationStatus, RequestStatus } from '../../components/const';
+import { AutorizationStatus, NameSpace, RequestStatus } from '../../components/const';
 import { RootState } from '..';
 import { TUser } from '../../components/types';
 import { checkAuth, login, logout } from './user-thunk';
@@ -36,17 +36,7 @@ function processSuccess(state: UserState, action:PayloadAction<TUser>){
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-
-    setStatus(state, action: PayloadAction<AutorizationStatus>): void {
-      state.authorizationStatus = action.payload;
-    },
-
-    setUser(state, action: PayloadAction<TUser>): void {
-      state.user = action.payload;
-    },
-
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(checkAuth.pending, processLoading)
@@ -71,7 +61,7 @@ export const userSlice = createSlice({
 });
 
 export const userActions = {...userSlice.actions, checkAuth, login, logout};
-export const selectAuthorizationStatus = (state: RootState) => state.user.authorizationStatus;
-export const selectUser = (state: RootState) => state.user.user;
-export const selectRequestStatus = (state: RootState) => state.user.requestStatus;
+export const selectAuthorizationStatus = (state: RootState) => state[NameSpace.User].authorizationStatus;
+export const selectUser = (state: RootState) => state[NameSpace.User].user;
+export const selectRequestStatus = (state: RootState) => state[NameSpace.User].requestStatus;
 export default userSlice.reducer;
