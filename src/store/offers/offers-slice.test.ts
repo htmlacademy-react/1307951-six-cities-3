@@ -1,5 +1,6 @@
 import { makeFakeOffer } from '../../utils/mocks';
 import { offersActions, offersSlice } from './offers-slice';
+import { changeFavoriteStatus } from '../favorites/favorites-thunk';
 
 describe('Offer Slice', () => {
 
@@ -94,5 +95,29 @@ describe('Offer Slice', () => {
       ),
     );
     expect(result.isLoading).toBe(false);
+  });
+
+  it('should update isFavorite of the found offer when changeFavoriteStatus.fulfilled', () => {
+
+    const fakeOfferBefore = { ...makeFakeOffer(), id: 'offer-1', isFavorite: false };
+    const fakeOfferAfter = { ...fakeOfferBefore, isFavorite: true };
+
+    const initialState = {
+      offers: [fakeOfferBefore],
+      isLoading: true,
+    };
+
+    const result = offersSlice.reducer(
+      initialState,
+      changeFavoriteStatus.fulfilled(
+        fakeOfferAfter,
+        '',
+        {
+          offerId: 'offer-1',
+          isFavorite: true,
+        }),
+    );
+
+    expect(result.offers[0].isFavorite).toBe(true);
   });
 });

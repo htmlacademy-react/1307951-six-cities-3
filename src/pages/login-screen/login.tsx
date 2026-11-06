@@ -1,8 +1,12 @@
 import Header from '../../components/header/header';
 import { Helmet } from 'react-helmet-async';
-import { FormEvent, ReactEventHandler, useState } from 'react';
+import { FormEvent,ReactEventHandler, useState } from 'react';
 import { userActions } from '../../store/user/user-slice';
 import { useActionCreators } from '../../store/hooks';
+import { getRandomCityName } from '../../utils/random';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../components/const';
+import { uiActions } from '../../store/ui/ui-slice';
 
 
 type THTMLLoginForm = HTMLFormElement & {
@@ -10,10 +14,11 @@ type THTMLLoginForm = HTMLFormElement & {
   password: HTMLInputElement;
 };
 
-// почему textAreaElement?
 type TChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 
 function Login(): JSX.Element {
+  const { setActiveCity } = useActionCreators(uiActions);
+  const rundomCity = getRandomCityName();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -30,6 +35,10 @@ function Login(): JSX.Element {
       [name]: value
     });
   };
+
+  function handleCityChange() {
+    setActiveCity(rundomCity);
+  }
 
   function handleSubmit(event: FormEvent<THTMLLoginForm>) {
     event.preventDefault();
@@ -93,9 +102,13 @@ function Login(): JSX.Element {
 
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link
+                className="locations__item-link"
+                to={AppRoute.Main}
+                onClick={handleCityChange}
+              >
+                <span>{rundomCity}</span>
+              </Link>
             </div>
           </section>
 

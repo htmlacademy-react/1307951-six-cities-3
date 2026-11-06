@@ -3,6 +3,7 @@ import { TOffer } from '../../components/types';
 import { RootState } from '..';
 import { fetchAllOffers } from './offers-thunk';
 import { NameSpace } from '../../components/const';
+import { changeFavoriteStatus } from '../favorites/favorites-thunk';
 
 export interface OffersState {
   offers: TOffer[];
@@ -30,6 +31,13 @@ export const offersSlice = createSlice({
       })
       .addCase(fetchAllOffers.rejected, (state) => {
         state.isLoading = false;
+      })
+      .addCase(changeFavoriteStatus.fulfilled, (state, action) => {
+        const updated = action.payload;
+        const targetOffer = state.offers.find((offer) => offer.id === updated.id);
+        if (targetOffer) {
+          targetOffer.isFavorite = updated.isFavorite;
+        }
       });
   },
 

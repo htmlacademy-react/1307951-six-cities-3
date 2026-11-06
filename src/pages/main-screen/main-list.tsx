@@ -1,16 +1,13 @@
 import OfferList from '../../components/offers-list/offers-list';
 import Sorting from '../../components/sorting/sorting';
 import Map from '../../components/map/map';
+import Spinner from '../../components/spinner/spinner';
 import { TOffer, TSortType } from '../../components/types';
 import { useCallback, useEffect } from 'react';
 import { useActionCreators, useAppDispatch, useAppSelector } from '../../store/hooks';
 import { offersActions, selectOffersLoading } from '../../store/offers/offers-slice';
 import { selectActiveCityLocation, selectSortedOffers, selectSortedOffersLength } from '../../store/offers/offers-selectors';
 import { selectActiveCity, selectActiveOfferId, selectSortType } from '../../store/ui/ui-slice-selectors';
-import Spinner from '../../components/spinner/spinner';
-import { AutorizationStatus } from '../../components/const';
-import { selectAuthorizationStatus } from '../../store/user/user-slice';
-import { favoritesActions } from '../../store/favorites/favorites-slice';
 import { toast } from 'react-toastify';
 import { uiActions } from '../../store/ui/ui-slice';
 
@@ -20,7 +17,6 @@ export function MainList(): JSX.Element {
   const dispatch = useAppDispatch();
   const { fetchAllOffers } = useActionCreators(offersActions);
   const { setActiveOfferId, setSortType } = useActionCreators(uiActions);
-  const { fetchFavorites } = useActionCreators(favoritesActions);
 
   const sortedOffersLength = useAppSelector(selectSortedOffersLength);
   const isLoading = useAppSelector(selectOffersLoading);
@@ -29,7 +25,7 @@ export function MainList(): JSX.Element {
   const sortedOffers = useAppSelector(selectSortedOffers);
   const activeOfferId = useAppSelector(selectActiveOfferId);
   const activeCityLocation = useAppSelector(selectActiveCityLocation);
-  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+
 
   useEffect(() => {
     if (sortedOffersLength === 0) {
@@ -47,19 +43,14 @@ export function MainList(): JSX.Element {
 
   }, [dispatch, fetchAllOffers, sortedOffersLength]);
 
-  useEffect(() => {
-    if (authorizationStatus === AutorizationStatus.Auth) {
-      fetchFavorites();
-    }
-  }, [authorizationStatus, fetchFavorites]);
 
   const handleActiveOfferChange = useCallback((offer: TOffer | null): void => {
     setActiveOfferId(offer?.id ?? null);
-  }, []);
+  }, [setActiveOfferId]);
 
   const handleSortChange = useCallback((option: TSortType): void => {
     setSortType(option);
-  },[]);
+  }, [setSortType]);
 
   if (isLoading) {
     return (<Spinner />);

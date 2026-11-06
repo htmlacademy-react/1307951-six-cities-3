@@ -14,6 +14,7 @@ function LoggedNavigation(): JSX.Element {
   const isAuth = useAuth();
   const numberOfFavorites = useAppSelector(selectFavoritesLength);
 
+
   useEffect(() => {
     if (isAuth) {
       fetchFavorites();

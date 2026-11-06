@@ -94,4 +94,25 @@ describe('Offer Slice', () => {
     expect(result).toEqual(expectedState);
   });
 
+  it('should put the payload into nearby and switch to success on fetchNearBy.fulfilled', () => {
+    const nearbyOffers = [makeFakeOffer(), makeFakeOffer()];
+    const initialState = {
+      info: null,
+      nearby: [],
+      status: RequestStatus.Success
+    };
+    const expectedState = {
+      info: null,
+      nearby: nearbyOffers,
+      status: RequestStatus.Success
+    };
+
+    const result = offerSlice.reducer(
+      initialState,
+      offerActions.fetchNearBy.fulfilled(nearbyOffers, 'offer-id', ''),
+    );
+
+    expect(result).toEqual(expectedState);
+  });
+
 });

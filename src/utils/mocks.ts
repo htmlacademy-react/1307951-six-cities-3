@@ -98,3 +98,11 @@ export const makeFakeCommentInfo = (): TCommentInfo => ({
   },
   offerId: datatype.uuid(),
 });
+
+export const makeFakeUser = (): TUser => ({
+  name: name.findName(),
+  avatarUrl: image.avatar(),
+  isPro: datatype.boolean(),
+  email: internet.email(),
+  token: datatype.uuid(),
+} as TUser);

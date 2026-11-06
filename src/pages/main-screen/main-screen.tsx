@@ -1,15 +1,14 @@
 import Header from '../../components/header/header';
 import LocationNavigation from '../../components/location-navigation/location-navigation';
 
-
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../store/hooks';
 import { selectActiveCity} from '../../store/ui/ui-slice-selectors';
 
-import { MainList } from './main-list';
 import { MainEmpty } from './main-empty';
 import { selectOffersLoading } from '../../store/offers/offers-slice';
 import { selectSortedOffersLength } from '../../store/offers/offers-selectors';
+import { MainList } from './main-list';
 
 function MainScreen(): JSX.Element {
 

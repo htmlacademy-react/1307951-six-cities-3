@@ -13,7 +13,6 @@ import { commentsActions } from '../../store/comments/comments-slice';
 import CommentForm from '../../components/comments/comment-form';
 import Comments from '../../components/comments/comments';
 import { useFavoriteClick } from '../../hooks/use-favorite-click';
-import { favoritesActions } from '../../store/favorites/favorites-slice';
 import { selectFavoritePendingIds } from '../../store/favorites/favorites-selectors';
 import { selectNearbyOffersWithFavorites, selectOfferWithFavorites } from '../../store/offer/offer-selectors';
 import { selectSortedCommentsByDate } from '../../store/comments/comments-selectors';
@@ -26,13 +25,11 @@ function OfferScreen(): JSX.Element {
   const { id } = useParams();
   const { fetchOffer, fetchNearBy, clear } = useActionCreators(offerActions);
   const { fetchComments, clearComments } = useActionCreators(commentsActions);
-  const { fetchFavorites } = useActionCreators(favoritesActions);
 
   const currentOffer = useAppSelector(selectOfferWithFavorites);
   const nearbyOffers = useAppSelector(selectNearbyOffersWithFavorites);
   const status = useAppSelector(offerSelectors.offerStatus);
   const activeOfferId = useAppSelector(selectActiveOfferId);
-  // const { setActiveOfferId } = useActionCreators(uiActions);
   const isAuth = useAuth();
 
   const comments = useAppSelector(selectSortedCommentsByDate);
@@ -59,12 +56,6 @@ function OfferScreen(): JSX.Element {
     };
   }, [fetchOffer, fetchNearBy, id, clear, fetchComments, clearComments]);
 
-  useEffect(() => {
-    if (isAuth) {
-      fetchFavorites();
-    }
-  }, [isAuth, fetchFavorites]);
-
   if (!id) {
     return <NotFound type={'page'} />;
   }
@@ -84,6 +75,8 @@ function OfferScreen(): JSX.Element {
   const isPending = Boolean(pendingIds[id]);
   const nearbyOffersForMap = [currentOffer, ...nearbyOffers];
   const rating = `${(Math.round(currentOffer.rating) * 100) / 5}%`;
+  const bedroomsInfo = currentOffer.bedrooms === 1 ? '1 Bedroom' : `${currentOffer.bedrooms} Bedrooms` ;
+  const adultsInfo = currentOffer.maxAdults === 1 ? 'Max 1 adult' : `Max ${currentOffer.maxAdults} adults`;
 
   const handleFavoriteClick = () => {
     if(isPending) {
@@ -136,10 +129,10 @@ function OfferScreen(): JSX.Element {
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">{currentOffer.type.charAt(0).toUpperCase() + currentOffer.type.slice(1)}</li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {currentOffer.bedrooms} Bedrooms
+                  { bedroomsInfo }
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {currentOffer.maxAdults} adults
+                  {adultsInfo}
                 </li>
               </ul>
               <div className="offer__price">

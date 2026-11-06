@@ -91,7 +91,9 @@ function OfferCard({ offer, onOfferHover }: TOfferCard) {
         <h2 className="place-card__name">
           <Link to={route}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">
+          {offer.type.charAt(0).toUpperCase() + offer.type.slice(1)}
+        </p>
       </div>
     </article>
   );
